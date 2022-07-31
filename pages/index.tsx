@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useUser } from "@auth0/nextjs-auth0";
 
+import Link from "next/link";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
@@ -61,23 +62,23 @@ const Home: NextPage = () => {
                 )}
 
                 <p style={{ fontSize: "2rem", fontWeight: 700 }}>
-                  {`Welcome ${user.given_name}`}
+                  {`Welcome ${user.given_name || user.name}`}
                 </p>
               </div>
               <p>Email: {user.email}</p>
               <p>Name: {user.name}</p>
 
-              <a href="/membersonly">
+              <Link href="/membersonly" passHref>
                 <button style={{ width: "100%", marginTop: "1rem" }}>
                   Go To Members Only Page
                 </button>
-              </a>
+              </Link>
 
-              <a href="/api/auth/logout">
+              <Link href="/api/auth/logout" passHref>
                 <button style={{ width: "100%", marginTop: "1rem" }}>
                   Logout
                 </button>
-              </a>
+              </Link>
             </a>
           )}
 
@@ -95,10 +96,12 @@ const Home: NextPage = () => {
           )}
 
           {!user && (
-            <a href="/api/auth/login" className={styles.card}>
-              <h2>Log In Now!</h2>
-              <p>Find out how easy it is to log in with Auth0!</p>
-            </a>
+            <Link href="/api/auth/login" passHref>
+              <a className={styles.card}>
+                <h2>Log In Now!</h2>
+                <p>Find out how easy it is to log in with Auth0!</p>
+              </a>
+            </Link>
           )}
         </div>
       </main>
